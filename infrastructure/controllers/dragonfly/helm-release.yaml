@@ -1,8 +1,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: dragonfly-operator
-  namespace: dragonfly-operator-system
+  name: dragonfly-operator-release
+  namespace: flux-system
 spec:
   releaseName: dragonfly-operator
   chart:
@@ -11,8 +11,9 @@ spec:
       version: v1.3.1
       sourceRef:
         kind: HelmRepository
-        name: dragonfly-operator
+        name: dragonfly-operator-repository
         namespace: flux-system
   interval: 1h0m0s
+  targetNamespace: dragonfly-operator-system
   install:
     createNamespace: true
