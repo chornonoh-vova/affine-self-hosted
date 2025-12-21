@@ -8,7 +8,8 @@ spec:
       chart: ./charts/affine
       sourceRef:
         kind: GitRepository
-        name: flux-system
+        name: git-repo
+        namespace: flux-system
   interval: 1m0s
   valuesFrom:
     - kind: Secret
