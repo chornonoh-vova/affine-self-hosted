@@ -10,6 +10,22 @@ Operators used:
 
 Created a custom Helm chart for the application.
 
+## Before installing
+
+Create certificates:
+
+```bash
+mkcert -cert-file affine-local.crt -key-file affine-local.key 'affine.local' '*.affine.local'
+```
+
+Create tls secret:
+
+```bash
+kubectl create secret tls affine-tls \
+  --key ./affine-local.key \
+  --cert ./affine-local.crt
+```
+
 ## Verification
 
 ```bash
