@@ -4,3 +4,4 @@ resources:
   - cluster.yaml
   - database.yaml
   - dragonfly.yaml
+  - ingress.yaml

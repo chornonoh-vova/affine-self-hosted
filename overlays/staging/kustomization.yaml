@@ -5,3 +5,17 @@ resources:
   - namespace.yaml
   - ../../base
   - affine-release.yaml
+patches:
+  - target:
+      kind: Ingress
+      name: affine-ingress
+    patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: staging.affine.local
+      - op: replace
+        path: /spec/tls/0/hosts/0
+        value: staging.affine.local
+      - op: replace
+        path: /spec/rules/0/http/paths/0/backend/service/name
+        value: affine-staging-svc

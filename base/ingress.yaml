@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: affine-ingress
+spec:
+  tls:
+    - hosts:
+        - affine.local
+      secretName: affine-tls
+  rules:
+    - host: affine.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: affine-production-svc
+                port:
+                  number: 3010
