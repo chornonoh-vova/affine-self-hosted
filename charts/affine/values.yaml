@@ -1,0 +1,23 @@
+image:
+  repository: ghcr.io/toeverything/affine
+  tag: "0.25.7"
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 3010
+
+env:
+  databaseUrl: ""
+  redisHost: ""
+  serverHost: "0.0.0.0"
+  serverPort: "3010"
+
+resources: {}
+
+persistence:
+  enabled: true
+  size: 10Gi
+  storageClass: null

@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "affine.fullname" . }}-deployment
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "affine.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "affine.name" . }}
+    spec:
+      containers:
+        - name: {{ include "affine.name" . }}-server
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.port }}
+          env:
+            - name: DATABASE_URL
+              value: {{ .Values.env.databaseUrl | quote }}
+            - name: REDIS_SERVER_HOST
+              value: {{ .Values.env.redisHost | quote }}
+            - name: AFFINE_SERVER_HOST
+              value: {{ .Values.env.serverHost | quote }}
+            - name: AFFINE_SERVER_PORT
+              value: {{ .Values.env.serverPort | quote }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: data
+              mountPath: /root/.affine
+      initContainers:
+        - name: {{ include "affine.name" . }}-migration
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.port }}
+          env:
+            - name: DATABASE_URL
+              value: {{ .Values.env.databaseUrl | quote }}
+            - name: REDIS_SERVER_HOST
+              value: {{ .Values.env.redisHost | quote }}
+            - name: AFFINE_SERVER_HOST
+              value: {{ .Values.env.serverHost | quote }}
+            - name: AFFINE_SERVER_PORT
+              value: {{ .Values.env.serverPort | quote }}
+          command: ['sh', '-c', 'node ./scripts/self-host-predeploy.js']
+          volumeMounts:
+            - name: data
+              mountPath: /root/.affine
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "affine.fullname" . }}-data
+
