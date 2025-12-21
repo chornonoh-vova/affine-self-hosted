@@ -5,14 +5,15 @@ metadata:
 spec:
   chart:
     spec:
+      chart: ./charts/affine
       sourceRef:
         kind: GitRepository
         name: flux-system
-        chart: ./charts/affine
   valuesFrom:
     - kind: Secret
       name: cluster-app
       valuesKey: fqdn-uri
       targetPath: env.databaseUrl
   values:
-    redisHost: dragonfly
+    env:
+      redisHost: dragonfly
