@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: production
 resources:
   - namespace.yaml
+  - hpa.yaml
   - ../../base
   - affine-release.yaml
 patches:
