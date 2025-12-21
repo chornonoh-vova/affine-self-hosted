@@ -15,6 +15,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: affine-production-svc
+                name: affine-svc
                 port:
                   number: 3010
