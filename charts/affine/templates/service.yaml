@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "affine.fullname" . }}-svc
+  name: {{ include "affine.name" . }}
 spec:
   type: {{ .Values.service.type }}
   ports:

@@ -11,3 +11,6 @@ spec:
     kind: GitRepository
     name: flux-system
   targetNamespace: staging
+  postBuild:
+    substitute:
+      release_name: "staging"

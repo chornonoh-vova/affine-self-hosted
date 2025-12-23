@@ -5,15 +5,14 @@ resources:
   - namespace.yaml
   - hpa.yaml
   - ../../base
-  - affine-release.yaml
 patches:
   - target:
-      kind: Ingress
-      name: affine-ingress
+      kind: HelmRelease
+      name: production
     patch: |-
       - op: replace
-        path: /spec/rules/0/http/paths/0/backend/service/name
-        value: affine-production-svc
+        path: /spec/values/replicaCount
+        value: 3
   - target:
       kind: Cluster
     patch: |-

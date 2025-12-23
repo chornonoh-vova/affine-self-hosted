@@ -11,3 +11,6 @@ spec:
     kind: GitRepository
     name: flux-system
   targetNamespace: production
+  postBuild:
+    substitute:
+      release_name: "production"

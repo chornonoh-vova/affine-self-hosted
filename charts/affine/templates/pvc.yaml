@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "affine.fullname" . }}-data
+  name: {{ include "affine.name" . }}
 spec:
   accessModes: ["ReadWriteOnce"]
   resources:
